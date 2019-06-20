@@ -571,6 +571,7 @@ public class HomePageScript extends CommonTestcase {
 	@AfterMethod
 	public void afterMethod(ITestResult result) {
 		getResult(result);
+		
 	}
 
 	@AfterClass
