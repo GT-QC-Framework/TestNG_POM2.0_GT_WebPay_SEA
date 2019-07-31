@@ -1,13 +1,13 @@
 package com.payzing.actions;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import com.payzing.ui.HomePageUI;
-import com.payzing.ui.LogInPageUI;
-
-import CommonPage.commonFunction;
+import Common.commonFunction;
 
 public class LogInPage extends commonFunction {
 
@@ -15,183 +15,282 @@ public class LogInPage extends commonFunction {
 		super(driver);
 	}
 
+//	@FindBy(xpath="//img[contains(@src,'dcmthai')]")
+//	WebElement ICON_DCM_THAI;
+//	
+//	@FindBy(xpath="//img[contains(@src,'cfmobile')]")
+//	WebElement ICON_CFMOBILE_THAI;
+//	
+//	@FindBy(xpath="//img[contains(@src,'rosthai')]")
+//	WebElement ICON_ROS_THAI ;
+//	
+//	@FindBy(xpath="//img[contains(@src,'rospcthai')]")
+//	WebElement ICON_ROSPC_THAI;
+//	
+//	@FindBy(xpath="//img[contains(@src,'omgthai')]")
+//	WebElement ICON_OMG_THAI;
+
+	@FindBy(id = "facebook")
+	List<WebElement> LOGIN_BY_FACEBOOK;
+
+	@FindBy(id = "facebook")
+	WebElement ICON_FACEBOOK;
+
+	@FindBy(id = "email")
+	List<WebElement> LOGIN_BY_EMAIL;
+
+	@FindBy(id = "email")
+	WebElement ICON_EMAIL;
+
+	@FindBy(id = "google")
+	List<WebElement> LOGIN_BY_GOOGLE;
+
+	@FindBy(id = "google")
+	WebElement ICON_GOOGLE;
+
+	@FindBy(id = "zing")
+	List<WebElement> LOGIN_BY_ZINGID;
+
+	@FindBy(id = "zing")
+	WebElement ICON_ZINGID;
+	
+	@FindBy(id = "zalo")
+	List<WebElement> LOGIN_BY_ZALO;
+
+	@FindBy(id = "zalo")
+	WebElement ICON_ZALO;
+
+	@FindBy(id = "u")
+	WebElement LOGIN_BY_ZINGID_USERNAME_TXT;
+
+	@FindBy(id = "p")
+	WebElement LOGIN_BY_ZINGID_PASSWORD_TXT;
+
+	@FindBy(id = "login-btn")
+	WebElement LOGIN_BY_ZINGID_BTT_DANGNHAP;
+
+	@FindBy(id = "back-btn")
+	WebElement LOGIN_BY_ZINGID_BTT_QUAYVE;
+
+	@FindBy(id = "message")
+	WebElement LOGIN_BY_ZINGID_ERROR_MESSAGE;
+
+	@FindBy(xpath = "//div[@id='popupAlertError']//span[contains(@data-bind,'text: WP.alertMessage()')]")
+	WebElement LOGIN_BY_ZINGID_BTT_QUAYVE_POPUP_MESSAGE;
+
+	@FindBy(xpath = "//div[@id='popupAlertError']//span[contains(@data-bind,'OK')]")
+	WebElement LOGIN_BY_ZINGID_BTT_QUAYVE_POPUP_BTT_OK;
+	
+	@FindBy(xpath="//span[contains(@data-bind,'mess.Logout')]")
+	WebElement LOGIN_BY_ZINGID_SUCCESS_BTT_LOGOUT;
+
+	@FindBy(id = "e")
+	WebElement LOGIN_BY_EMAIL_USERNAME_TXT;
+
+	@FindBy(id = "p")
+	WebElement LOGIN_BY_EMAIL_PASSWORD_TXT;
+
+	@FindBy(id = "login-btn")
+	WebElement LOGIN_BY_EMAIL_SUBMIT_BTT;
+
+	@FindBy(id = "back-btn")
+	WebElement LOGIN_BY_EMAIL_BACK_BTT;
+
+	@FindBy(xpath = "//div[@id='popupAlertError']//span[contains(@data-bind,'alertMessage')]")
+	WebElement LOGIN_BY_EMAIL_BACK_BTT_POPUP_MESSAGE;
+
+	@FindBy(xpath = "//div[@id='popupAlertError']//span[contains(@data-bind,'OK')]")
+	WebElement LOGIN_BY_EMAIL_BACK_BTT_POPUP_BTT_OK;
+
+	@FindBy(id = "message")
+	WebElement LOGIN_BY_EMAIL_ERROR_MESSAGE;
+
+	@FindBy(xpath = "//span[contains(@data-bind,'mess.Logout')]")
+	WebElement LOGIN_BY_EMAIL_SUCCESS_BTT_LOGOUT;
+	
+	@FindBy(xpath="//button[@type='button']")
+	WebElement LOGIN_BY_ROLE_DROPDOWN_CUMMAYCHU;
+	
+	@FindBy(id="authTxtRoleInfo")
+	WebElement LOGIN_BY_ROLE_TXT_TENNHANVAT;
+	
+	@FindBy(id="authBtnSubmit")
+	WebElement LOGIN_BY_ROLE_BTT_DANGNHAP;
+	
+	@FindBy(id="authTextErrMessage")
+	WebElement LOGIN_BY_ROLE_MSG_ERROR;
+	
+	@FindBy(xpath="//label[contains(@data-bind,'LoginByRoleid')]")
+	WebElement LOGIN_BY_ROLE_OPTION_ROLE_ID;
+	
+	@FindBy(xpath="//div[@id='authConfirmRoleInfo']//span[contains(@data-bind,'mess.Submit')]")
+	WebElement LOGIN_BY_ROLE_POPUP_BTT_ACCEPT;
+	
+	@FindBy(xpath="//div[@id='authConfirmRoleInfo']//span[contains(@data-bind,'mess.Cancel')]")
+	WebElement LOGIN_BY_ROLE_POPUP_BTT_CANCEL;
+	
+	
+	//
+	
+	public void clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU()
+	{
+		waitVisible(LOGIN_BY_ROLE_DROPDOWN_CUMMAYCHU);
+		clickElement(LOGIN_BY_ROLE_DROPDOWN_CUMMAYCHU);
+	}
+	public void clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION(String dynamic)
+	{
+		clickDynamic_Dropdown_Option(dynamic);
+	}
+	
+	public void clickDYNAMIC_GAME(String dynamic) {
+		waitVisibleDynamicXpath(dynamic);
+		clickDynamicXpath(dynamic);
+	}
 	public HomePage clickBTT_DangNhap() {
-		waitVisible(LogInPageUI.DANGNHAP_BTT);
-		click(LogInPageUI.DANGNHAP_BTT);
+		waitVisible(LOGIN_BY_EMAIL_SUBMIT_BTT);
+		clickElement(LOGIN_BY_EMAIL_SUBMIT_BTT);
 
 		return PageFactory.initElements(driver, HomePage.class);
 	}
-
-	public String getText_Null_UserName_Password() {
-		waitVisible(LogInPageUI.ERROR_MESSAGE);
-		return getText(LogInPageUI.ERROR_MESSAGE);
+	public void inputLOGIN_BY_EMAIL_USERNAME_TXT(String value) {
+		waitVisible(LOGIN_BY_EMAIL_USERNAME_TXT);
+		clear(LOGIN_BY_EMAIL_USERNAME_TXT);
+		input(LOGIN_BY_EMAIL_USERNAME_TXT, value);
+	}
+	public void inputLOGIN_BY_EMAIL_PASSWORD_TXT(String value) {
+		waitVisible(LOGIN_BY_EMAIL_PASSWORD_TXT);
+		clear(LOGIN_BY_EMAIL_PASSWORD_TXT);
+		input(LOGIN_BY_EMAIL_PASSWORD_TXT, value);
+	}
+	public void clickLOGIN_BY_EMAIL_SUBMIT_BTT() {
+		waitVisible(LOGIN_BY_EMAIL_SUBMIT_BTT);
+		clickElement(LOGIN_BY_EMAIL_SUBMIT_BTT);
 	}
 
-	public void input_Username_TXT(String value) {
-		waitVisible(LogInPageUI.USERNAME_TXT);
-		input(LogInPageUI.USERNAME_TXT, value);
+	public void clickLOGIN_BY_EMAIL_BACK_BTT() {
+		waitVisible(LOGIN_BY_EMAIL_BACK_BTT);
+		clickElement(LOGIN_BY_EMAIL_BACK_BTT);
 	}
-
-	public String getText_OnlyType_Username() {
-		waitVisible(LogInPageUI.ERROR_MESSAGE);
-		return getText(LogInPageUI.ERROR_MESSAGE);
-	}
-
-	//
-	public void input_Password_TXT(String value) {
-		waitVisible(LogInPageUI.PASSWORD_TXT);
-		input(LogInPageUI.PASSWORD_TXT, value);
-	}
-
-	public String getText_OnlyType_Password() {
-		waitVisible(LogInPageUI.ERROR_MESSAGE);
-		return getText(LogInPageUI.ERROR_MESSAGE);
-	}
-
-	// Clear by js
-	public void clearByJs(String value) {
-		executeScriptBrowser(value);
-	}
-
-	public String getText_Invalid_Account() {
-		waitVisible(LogInPageUI.ERROR_MESSAGE);
-		return getText(LogInPageUI.ERROR_MESSAGE);
-	}
-
-	//
-	public void inputTXT_TIMKIEMGAME(String value) {
-		waitVisible(LogInPageUI.TIMKIEMGAME_TXT);
-		input(LogInPageUI.TIMKIEMGAME_TXT, value);
-	}
-
-	public void clickKETQUA_TIMKIEM() {
-		waitVisible(LogInPageUI.TIMKIEM_RESULT);
-		click(LogInPageUI.TIMKIEM_RESULT);
-	}
-
-	//
-	public String getText_Title_Game() {
-		waitVisible(LogInPageUI.TITLEGAME_LBL);
-		return getText(LogInPageUI.TITLEGAME_LBL);
-	}
-
-	public void clickQuickLogin_Icon() {
-		waitVisible(LogInPageUI.EMAIL_ICON);
-		click(LogInPageUI.EMAIL_ICON);
-	}
-
-	public void clickDropDown_CumMayChu(WebElement ele) {
-		waitVisible(LogInPageUI.DROPDOWN_CUMMAYCHU);
-		ele.click();
-	}
-
-	public void selectDropdown_CumMayChu(WebElement ele, String locator) {
-		waitVisible(locator);
-		selectCombobox_Special(ele, locator);
-	}
-
-	//
-	public void clickDropDown_MayChu(WebElement ele) {
-		waitVisible(LogInPageUI.DROPDOWN_MAYCHU);
-		ele.click();
-	}
-
-	public void selectDropdown_MayChu(WebElement ele, String locator) {
-		waitVisible(locator);
-		selectCombobox_Special(ele, locator);
-	}
-
-	//
-	public void clickDropDown_NhanVat(WebElement ele) {
-		ele.click();
-	}
-
-	public void selectDropdown_NhanVat(WebElement ele, String locator) {
-		waitVisible(locator);
-		selectCombobox_Special(ele, locator);
-	}
-
-	public void clickBTT_Thoat() {
-		waitVisible(LogInPageUI.THOAT_BTT);
-		click(LogInPageUI.THOAT_BTT);
+	public String getTextLOGIN_BY_EMAIL_BACK_BTT_POPUP_MESSAGE()
+	{
+		waitVisible(LOGIN_BY_EMAIL_BACK_BTT_POPUP_MESSAGE);
+		return getText(LOGIN_BY_EMAIL_BACK_BTT_POPUP_MESSAGE);
 	}
 	
-	public void clickZalo_Icon() {
-		if(checkElementDisplay(LogInPageUI.ZALO_ICON))
-		{
-			waitVisible(LogInPageUI.ZALO_ICON);
-			click(LogInPageUI.ZALO_ICON);
+	public void clickLOGIN_BY_EMAIL_BACK_BTT_POPUP_BTT_OK()
+	{
+		waitVisible(LOGIN_BY_EMAIL_BACK_BTT_POPUP_BTT_OK);
+		clickElement(LOGIN_BY_EMAIL_BACK_BTT_POPUP_BTT_OK);
+	}
+
+	public void clickICON_FACEBOOK() {
+		if (checkLocatorDisplay(LOGIN_BY_FACEBOOK)) {
+			waitVisible(ICON_FACEBOOK);
+			clickElement(ICON_FACEBOOK);
 		}
 	}
-	
-	public void clickFaceBook_Icon() {
-		if(checkElementDisplay(LogInPageUI.FACEBOOK_ICON))
-		{
-			waitVisible(LogInPageUI.FACEBOOK_ICON);
-			click(LogInPageUI.FACEBOOK_ICON);
+
+	public void clickICON_EMAIL() {
+		if (checkLocatorDisplay(LOGIN_BY_EMAIL)) {
+			waitVisible(ICON_EMAIL);
+			clickElement(ICON_EMAIL);
 		}
 	}
-	
-	public void clickXacNhan_ID_NHANVAT()
+	public void clickICON_GOOGLE() {
+		if (checkLocatorDisplay(LOGIN_BY_GOOGLE)) {
+			waitVisible(ICON_GOOGLE);
+			clickElement(ICON_GOOGLE);
+		}
+	}
+	public void clickICON_ZINGID() {
+		if (checkLocatorDisplay(LOGIN_BY_ZINGID)) {
+			waitVisible(ICON_ZINGID);
+			clickElement(ICON_ZINGID);
+		}
+	}
+	public void clickICON_ZALO() {
+		if (checkLocatorDisplay(LOGIN_BY_ZALO)) {
+			waitVisible(ICON_ZALO);
+			clickElement(ICON_ZALO);
+		}
+	}
+	public String getTextLOGIN_BY_EMAIL_ERROR_MESSAGE() {
+		waitVisible(LOGIN_BY_EMAIL_ERROR_MESSAGE);
+		return getText(LOGIN_BY_EMAIL_ERROR_MESSAGE);
+	}
+	public void clickLOGIN_BY_EMAIL_SUCCESS_BTT_LOGOUT() {
+		waitVisible(LOGIN_BY_EMAIL_SUCCESS_BTT_LOGOUT);
+		clickElement(LOGIN_BY_EMAIL_SUCCESS_BTT_LOGOUT);
+	}
+	public void inputLOGIN_BY_ZINGID_USERNAME_TXT(String value) {
+		waitVisible(LOGIN_BY_ZINGID_USERNAME_TXT);
+		clear(LOGIN_BY_ZINGID_USERNAME_TXT);
+		input(LOGIN_BY_ZINGID_USERNAME_TXT, value);
+	}
+
+	public void inputLOGIN_BY_ZINGID_PASSWORD_TXT(String value) {
+		waitVisible(LOGIN_BY_ZINGID_PASSWORD_TXT);
+		clear(LOGIN_BY_ZINGID_PASSWORD_TXT);
+		input(LOGIN_BY_ZINGID_PASSWORD_TXT, value);
+	}
+
+	public void clickLOGIN_BY_ZINGID_BTT_DANGNHAP() {
+		waitVisible(LOGIN_BY_ZINGID_BTT_DANGNHAP);
+		clickElement(LOGIN_BY_ZINGID_BTT_DANGNHAP);
+	}
+	public void clickLOGIN_BY_ZINGID_BTT_QUAYVE()
 	{
-		waitVisible(LogInPageUI.ID_NHANVAT_BTT);
-		click(LogInPageUI.ID_NHANVAT_BTT);
+		waitVisible(LOGIN_BY_ZINGID_BTT_QUAYVE);
+		clickElement(LOGIN_BY_ZINGID_BTT_QUAYVE);
+	}
+	public String getTextLOGIN_BY_ZINGID_BTT_QUAYVE_POPUP_MESSAGE()
+	{
+		waitVisible(LOGIN_BY_ZINGID_BTT_QUAYVE_POPUP_MESSAGE);
+		return getText(LOGIN_BY_ZINGID_BTT_QUAYVE_POPUP_MESSAGE);
+	}
+	public void clickLOGIN_BY_ZINGID_BTT_QUAYVE_POPUP_BTT_OK()
+	{
+		waitVisible(LOGIN_BY_ZINGID_BTT_QUAYVE_POPUP_BTT_OK);
+		clickElement(LOGIN_BY_ZINGID_BTT_QUAYVE_POPUP_BTT_OK);
 	}
 	
-	public void clickIDNHANVAT_FORM_BTT_XACNHAN()
+	public void clickLOGIN_BY_ZINGID_SUCCESS_BTT_LOGOUT()
 	{
-		waitVisible(LogInPageUI.IDNHANVAT_FORM_BTT_XACNHAN);
-		click(LogInPageUI.IDNHANVAT_FORM_BTT_XACNHAN);
+		waitVisible(LOGIN_BY_ZINGID_SUCCESS_BTT_LOGOUT);
+		clickElement(LOGIN_BY_ZINGID_SUCCESS_BTT_LOGOUT);
+	}
+	public void inputLOGIN_BY_ROLE_TXT_TENNHANVAT(String value)
+	{
+		waitVisible(LOGIN_BY_ROLE_TXT_TENNHANVAT);
+		clear(LOGIN_BY_ROLE_TXT_TENNHANVAT);
+		input(LOGIN_BY_ROLE_TXT_TENNHANVAT, value);
+	}
+	public void clickLOGIN_BY_ROLE_BTT_DANGNHAP()
+	{
+		waitVisible(LOGIN_BY_ROLE_BTT_DANGNHAP);
+		clickElement(LOGIN_BY_ROLE_BTT_DANGNHAP);
+	}
+	public String getTextLOGIN_BY_ROLE_MSG_ERROR()
+	{
+		waitVisible(LOGIN_BY_ROLE_MSG_ERROR);
+		return getText(LOGIN_BY_ROLE_MSG_ERROR);
+	}
+	public void clickLOGIN_BY_ROLE_OPTION_ROLE_ID()
+	{
+		waitVisible(LOGIN_BY_ROLE_OPTION_ROLE_ID);
+		clickElement(LOGIN_BY_ROLE_OPTION_ROLE_ID);
 	}
 	
-	public String getText_IDNHANVAT_FORM_MESS()
+	public void clickLOGIN_BY_ROLE_POPUP_BTT_CANCEL()
 	{
-		waitVisible(LogInPageUI.IDNHANVAT_FORM_MESS_ERROR);
-		
-		return getText(LogInPageUI.IDNHANVAT_FORM_MESS_ERROR);
+		waitVisible(LOGIN_BY_ROLE_POPUP_BTT_CANCEL);
+		clickElement(LOGIN_BY_ROLE_POPUP_BTT_CANCEL);
 	}
 	
-	public void clickIDNHANVAT_FORM_DROPDOWN_MAYCHU()
+	public void clickLOGIN_BY_ROLE_POPUP_BTT_ACCEPT()
 	{
-		waitVisible(LogInPageUI.IDNHANVAT_FORM_DROPDOWN_MAYCHU);
-		click(LogInPageUI.IDNHANVAT_FORM_DROPDOWN_MAYCHU);
+		waitVisible(LOGIN_BY_ROLE_POPUP_BTT_ACCEPT);
+		clickElement(LOGIN_BY_ROLE_POPUP_BTT_ACCEPT);
 	}
-	
-	public void selectIDNHANVAT_FORM_DROPDOWN_OPTION_MAYCHU(String value)
-	{
-		waitVisible(LogInPageUI.IDNHANVAT_FORM_DROPDOWN_OPTION_MAYCHU);
-		selectDropdown(LogInPageUI.IDNHANVAT_FORM_DROPDOWN_OPTION_MAYCHU, value);
-	}
-	
-	public void inputIDNHANVAT_FORM_TXT_NHANVAT(String value)
-	{
-		waitVisible(LogInPageUI.IDNHANVAT_FORM_TXT_NHANVAT);
-		input(LogInPageUI.IDNHANVAT_FORM_TXT_NHANVAT, value);
-	}
-	
-	public void cleanIDNHANVAT_FORM_TXT_NHANVAT()
-	{
-		waitVisible(LogInPageUI.IDNHANVAT_FORM_TXT_NHANVAT);
-		clear(LogInPageUI.IDNHANVAT_FORM_TXT_NHANVAT);
-	}
-	
-	public void clickIDNHANVAT_FORM_ROLE_ID()
-	{
-		waitVisible(LogInPageUI.IDNHANVAT_FORM_BTT_ROLE_ID);
-		click(LogInPageUI.IDNHANVAT_FORM_BTT_ROLE_ID);
-	}
-	
-	public void clickIDNHANVAT_FORM_POPUP_BTT_XACNHAN()
-	{
-		waitVisible(LogInPageUI.IDNHANVAT_FORM_POPUP_BTT_XACNHAN);
-		click(LogInPageUI.IDNHANVAT_FORM_POPUP_BTT_XACNHAN);
-	}
-	
-	public void clickIDNHANVAT_FORM_POPUP_BTT_HUY()
-	{
-		waitVisible(LogInPageUI.IDNHANVAT_FORM_POPUP_BTT_HUY);
-		click(LogInPageUI.IDNHANVAT_FORM_POPUP_BTT_HUY);
-	}
-	
 	
 }

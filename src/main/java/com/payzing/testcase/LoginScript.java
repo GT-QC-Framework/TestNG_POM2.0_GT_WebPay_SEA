@@ -1,5 +1,7 @@
 package com.payzing.testcase;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.ITestResult;
@@ -11,7 +13,7 @@ import org.testng.annotations.Test;
 
 import com.payzing.actions.LogInPage;
 
-import CommonPage.CommonTestcase;
+import Common.CommonTestcase;
 
 public class LoginScript extends CommonTestcase {
 	WebDriver driver;
@@ -24,602 +26,1097 @@ public class LoginScript extends CommonTestcase {
 
 	public void beforeClass(String browser, String version, String url) {
 
-		inititalReport("NhutBM_Webpay_TestCase_Login.html");
+		inititalReport("NhutBM_Webpay_TestCase_Login_Thai.html");
 		driver = openMultiBrowser(browser, version, url);
 
 		loginPage = PageFactory.initElements(driver, LogInPage.class);
 
 	}
 
-//	@BeforeMethod
+	@Test
+	public void testcase_01_Select_DCM_THAI() throws InterruptedException {
 
-	public void beforeMethod() throws InterruptedException {
-		loginPage.openUrl("https://pay.zing.vn/");
+		logTestCase("Select game DCM THAI");
 
-		loginPage.inputTXT_TIMKIEMGAME("vo lam truyen ky mobile");
+		loginPage.openUrl("https://zpay.mobi");
 
-		Thread.sleep(3000);
+		loginPage.clickDYNAMIC_GAME("dcmthai");
 
-		loginPage.clickKETQUA_TIMKIEM();
+	}
+	@Test
+	public void testcase_02_Verify_display_method_login_By_Facebook() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_FACEBOOK();
+		Thread.sleep(1000);
+		loginPage.backToPage();
+	}
+	@Test
+	public void testcase_03_Verify_display_method_Login_By_Google() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_GOOGLE();
+		Thread.sleep(1000);
+		loginPage.backToPage();
+	}
+	@Test
+	public void testcase_04_Verify_display_method_Login_By_Zalo() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_ZALO();
+		Thread.sleep(1000);
+		loginPage.backToPage();
+	}
+	@Test
+	public void testcase_05_Verify_display_method_Login_By_Email() throws InterruptedException {
+		loginPage.clickDYNAMIC_GAME("dcmthai");
+		Thread.sleep(1000);
+		loginPage.clickICON_EMAIL();
+		Thread.sleep(1000);
+	}
+	@Test
+	public void testcase_06_Verify_display_message_when_click_Back() throws InterruptedException {
+		loginPage.clickLOGIN_BY_EMAIL_BACK_BTT();
+		Thread.sleep(1000);
+//		verifyEqual(loginPage.getTextLOGIN_BY_EMAIL_BACK_BTT_POPUP_MESSAGE(), "การตรวจสอบความถูกต้องด้วย GUEST ล้มเหลว.");
+//		loginPage.clickLOGIN_BY_EMAIL_BACK_BTT_POPUP_BTT_OK();
+	}		
+	@Test
+	public void testcase_07_Verify_display_message_when_not_input_information() throws InterruptedException {
+		loginPage.clickDYNAMIC_GAME("dcmthai");
+		Thread.sleep(1000);
+		loginPage.clickICON_EMAIL();
+		Thread.sleep(1000);
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+	@Test
+	public void testcase_08_Verify_display_message_when_only_input_username() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("Wasurenaide");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+	@Test
+	public void testcase_09_Verify_display_message_when_not_input_information() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("");
+
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("Proud");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+
+	@Test
+	public void testcase_10_Verify_display_message_when_input_invalid_account() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("Love in the ice");
+
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("One67611176");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+
+		verifyEqual(loginPage.getTextLOGIN_BY_EMAIL_ERROR_MESSAGE(), "Authentication failed");
 
 	}
 
 	@Test
-	public void testcase_01_Dont_input_username_password() throws InterruptedException {
+	public void testcase_11_Verify_display_message_when_input_valid_account() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("nhutne555@gmail.com");
 
-		logTestCase("ZingID: Don't input username + password");
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("Aa123456!");
 
-		loginPage.openUrl("https://pay.zing.vn/");
+		Thread.sleep(1000);
 
-		loginPage.inputTXT_TIMKIEMGAME("vo lam truyen ky mobile");
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
 
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 
-		loginPage.clickKETQUA_TIMKIEM();
+		verifyEqual(loginPage.getTitle(), "ฤทธิ์มีดสั้น M");
 
-		loginPage.clickBTT_DangNhap();
+		Thread.sleep(1000);
 
-		verifyEqual(loginPage.getText_Null_UserName_Password(), "Vui lòng nhập tài khoản ZingID");
+		loginPage.clickLOGIN_BY_EMAIL_SUCCESS_BTT_LOGOUT();
+	}
+
+	
+	@Test
+	public void testcase_12_Select_DCM_THAI() throws InterruptedException {
+
+		logTestCase("Select game MU STRONGEST THAI");
+
+		loginPage.openUrl("https://zpay.mobi/musthai");
+	}
+	@Test
+	public void testcase_13_Verify_display_method_login_By_Facebook() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_FACEBOOK();
+		Thread.sleep(1000);
+		loginPage.backToPage();
+	}
+	@Test
+	public void testcase_14_Verify_display_method_Login_By_Google() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_GOOGLE();
+		Thread.sleep(1000);
+		loginPage.backToPage();
+	}
+	@Test
+	public void testcase_15_Verify_display_method_Login_By_Zalo() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_ZALO();
+		Thread.sleep(1000);
+		loginPage.backToPage();
+	}
+	@Test
+	public void testcase_16_Verify_display_method_Login_By_Email() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_EMAIL();
+		Thread.sleep(1000);
+	}
+	
+	@Test
+	public void testcase_17_Verify_display_homepage_when_click_back() throws InterruptedException {
+		loginPage.clickLOGIN_BY_EMAIL_BACK_BTT();
 	}
 
 	@Test
-	public void testcase_02_Only_Type_Input_UserName() {
-
-		logTestCase("ZingID: Only input username");
-
-		loginPage.input_Username_TXT("giinboo1");
-
-		loginPage.clickBTT_DangNhap();
-
-		verifyEqual(loginPage.getText_OnlyType_Username(), "Vui lòng nhập mật khẩu");
-
-		loginPage.clearByJs("$('input#u').val(\"\")");
+	public void testcase_18_Verify_display_message_when_not_input_information() throws InterruptedException {
+		loginPage.openUrl("https://zpay.mobi/musthai");
+		Thread.sleep(1000);
+		loginPage.clickICON_EMAIL();
+		Thread.sleep(1000);
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
 	}
 
 	@Test
-	public void testcase_03_Only_Type_Input_Password() {
+	public void testcase_19_Verify_display_message_when_only_input_username() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("Toki wo tomete");
 
-		logTestCase("ZingID: Only input password");
+		Thread.sleep(1000);
 
-		loginPage.input_Password_TXT("Aa123456!");
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+	
+	@Test
+	public void testcase_20_Verify_display_message_when_not_input_information() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("");
+		
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("Bolero");
 
-		loginPage.clickBTT_DangNhap();
+		Thread.sleep(1000);
 
-		verifyEqual(loginPage.getText_OnlyType_Password(), "Vui lòng nhập tài khoản ZingID");
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+	
+	@Test
+	public void testcase_21_Verify_display_message_when_input_invalid_account() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("Kiss the baby sky");
+		
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("260186");
 
-		loginPage.clearByJs("$('input#p').val(\"\")");
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+		
+		verifyEqual(loginPage.getTextLOGIN_BY_EMAIL_ERROR_MESSAGE(), "Authentication failed");
+		
+	}
+	
+	@Test
+	public void testcase_22_Verify_display_message_when_input_valid_account() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("nhutne555@gmail.com");
+		
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("Aa123456!");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+		
+		Thread.sleep(2000);
+		
+		verifyEqual(loginPage.getTitle(),"MU Strongest");
+		
+		Thread.sleep(1000);
+		
+		loginPage.clickLOGIN_BY_EMAIL_SUCCESS_BTT_LOGOUT();
+	}
+	@Test
+	public void testcase_23_Select_Crossfire_THAI() throws InterruptedException {
+
+		logTestCase("Select game Crossfire legends THAI");
+
+		loginPage.openUrl("https://zpay.mobi");
+
+		loginPage.clickDYNAMIC_GAME("cfmobilesea");
+
 	}
 
 	@Test
-	public void testcase_04_Type_Invalid_Account() throws InterruptedException {
+	public void testcase_24_Verify_display_method_login_By_Facebook() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_FACEBOOK();
+		Thread.sleep(1000);
+		loginPage.backToPage();
+	}
 
-		logTestCase("ZingID: Login with invalid account");
+	@Test
+	public void testcase_25_Verify_display_method_Login_By_Google() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_GOOGLE();
+		Thread.sleep(1000);
+		loginPage.backToPage();
+	}
 
-		loginPage.input_Username_TXT("giinboo123456");
+	@Test
+	public void testcase_26_Verify_display_method_Login_By_Email() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_EMAIL();
+		Thread.sleep(1000);
+	}
 
-		loginPage.input_Password_TXT("Aa123456!");
+	@Test
+	public void testcase_27_Verify_display_message_When_click_back() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickLOGIN_BY_EMAIL_BACK_BTT();
+		verifyEqual(loginPage.getTextLOGIN_BY_EMAIL_BACK_BTT_POPUP_MESSAGE(),
+				"การตรวจสอบความถูกต้องด้วย GUEST ล้มเหลว.");
+		Thread.sleep(1000);
+		loginPage.clickLOGIN_BY_EMAIL_BACK_BTT_POPUP_BTT_OK();
+	}
 
-		loginPage.clickBTT_DangNhap();
+	@Test
+	public void testcase_28_Verify_display_message_when_not_input_information() throws InterruptedException {
+		Thread.sleep(2000);
+		loginPage.clickICON_EMAIL();
+		Thread.sleep(1000);
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
 
-		Thread.sleep(3000);
+	@Test
+	public void testcase_29_Verify_display_message_when_only_input_username() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("Stand by u");
 
-		verifyEqual(loginPage.getText_Invalid_Account(), "Thông tin đăng nhập không chính xác");
+		Thread.sleep(1000);
 
-		loginPage.clearByJs("$('input#u').val(\"\")");
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
 
-		loginPage.clearByJs("$('input#p').val(\"\")");
+	@Test
+	public void testcase_30_Verify_display_message_when_not_input_information() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("");
+
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("Forever Love");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+
+	@Test
+	public void testcase_31_Verify_display_message_when_input_invalid_account() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("My Destiny");
+
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("260186");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+
+		verifyEqual(loginPage.getTextLOGIN_BY_EMAIL_ERROR_MESSAGE(), "Thông tin đăng nhập không chính xác");
 
 	}
 
 	@Test
-	public void testcase_05_Login_account_ZingID_success() throws InterruptedException {
+	public void testcase_32_Verify_display_message_when_input_valid_account() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("nhutne555@gmail.com");
 
-		logTestCase("ZingID: Login successfully");
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("Aa123456!");
 
-		loginPage.input_Username_TXT("giinboo1");
+		Thread.sleep(1000);
 
-		loginPage.input_Password_TXT("Aa123456!");
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
 
-		loginPage.clickBTT_DangNhap();
+		Thread.sleep(2000);
 
-		Thread.sleep(4000);
+		verifyEqual(loginPage.getTitle(), "Crossfire: Legends");
 
-//		verifyEqual(loginPage.getText_Title_Game(), "Võ Lâm Truyền Kỳ Mobile");
+		Thread.sleep(1000);
 
-//		Thread.sleep(1000);
-
-		loginPage.clickBTT_Thoat();
+		loginPage.clickLOGIN_BY_EMAIL_SUCCESS_BTT_LOGOUT();
 	}
 
-//		// get all Selector
-//		List<WebElement> list = driver.findElements(By.xpath("//div[contains(@class,'am-selected am-dropdown')]"));
-//		WebElement eleCumMayChu = null;
-//		WebElement eleMayChu = null;
-//		WebElement eleNhanVat = null;
-//
-//		if (list.size() == 3) {
-//			eleCumMayChu = list.get(0);
-//			eleMayChu = list.get(1);
-//			eleNhanVat = list.get(2);
-//		} else if (list.size() == 2) {
-//			eleMayChu = list.get(0);
-//			eleNhanVat = list.get(1);
-//		} else {
-//			eleNhanVat = list.get(0);
-//		}
-//
-//		if (eleCumMayChu != null) {
-//			loginPage.clickDropDown_CumMayChu(eleCumMayChu);
-//			Thread.sleep(500);
-//			String locator = String.format(LogInPageUI.LIST_ITEM_CUMMAYCHU, "Cụm máy chủ 41 - 50");
-//			loginPage.selectDropdown_CumMayChu(eleCumMayChu, locator);
-//		}
-//
-//		Thread.sleep(1000);
-//
-//		if (eleMayChu != null) {
-//			loginPage.clickDropDown_MayChu(eleMayChu);
-//			Thread.sleep(500);
-//			String locator = String.format(LogInPageUI.LIST_ITEM_MAYCHU, "S44-Bắc Sơn");
-//			loginPage.selectDropdown_MayChu(eleMayChu, locator);
-//		}
-//
+	@Test
+	public void testcase_33_Select_method_ZingID() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_ZINGID();
+	}
+
+	@Test
+	public void testcase_34_Verify_message_when_click_back() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickLOGIN_BY_ZINGID_BTT_QUAYVE();
+		Thread.sleep(1000);
+		verifyEqual(loginPage.getTextLOGIN_BY_ZINGID_BTT_QUAYVE_POPUP_MESSAGE(),
+				"การตรวจสอบความถูกต้องด้วย ZING ล้มเหลว.");
+		Thread.sleep(1000);
+		loginPage.clickLOGIN_BY_ZINGID_BTT_QUAYVE_POPUP_BTT_OK();
+	}
+
+	@Test
+	public void testcase_35_Verify_message_when_not_input_username_and_password() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_ZINGID();
+		Thread.sleep(1000);
+		loginPage.clickLOGIN_BY_ZINGID_BTT_DANGNHAP();
+	}
+	@Test
+	public void testcase_36_Verify_message_when_only_input_username() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.inputLOGIN_BY_ZINGID_USERNAME_TXT("Doushite Kimi Wo Suki Ni Natte Shimattan Darou");
+		loginPage.clickLOGIN_BY_ZINGID_BTT_DANGNHAP();
+	}
+	@Test
+	public void testcase_37_Verify_message_when_only_input_password() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.inputLOGIN_BY_ZINGID_USERNAME_TXT("");
+		loginPage.inputLOGIN_BY_ZINGID_PASSWORD_TXT("Why did i fall in love with you");
+		loginPage.clickLOGIN_BY_ZINGID_BTT_DANGNHAP();
+	}
+	@Test
+	public void testcase_38_Verify_message_when_input_invalid_account() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.inputLOGIN_BY_ZINGID_USERNAME_TXT("giintvxq");
+		loginPage.inputLOGIN_BY_ZINGID_PASSWORD_TXT("Why did i fall in love with you");
+		loginPage.clickLOGIN_BY_ZINGID_BTT_DANGNHAP();
+	}
+	@Test
+	public void testcase_39_Verify_message_when_input_valid_account() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.inputLOGIN_BY_ZINGID_USERNAME_TXT("giinboo1");
+		loginPage.inputLOGIN_BY_ZINGID_PASSWORD_TXT("Aa123456!");
+		loginPage.clickLOGIN_BY_ZINGID_BTT_DANGNHAP();
+		Thread.sleep(2000);
+		loginPage.clickLOGIN_BY_ZINGID_SUCCESS_BTT_LOGOUT();
+	}
+	@Test
+	public void testcase_40_Verify_display_method_login_By_Zalo() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_ZALO();
+		Thread.sleep(1000);
+		loginPage.backToPage();
+	}
+	@Test
+	public void testcase_41_Select_ROS_MOBILE() throws InterruptedException {
+
+		logTestCase("Select game Ros mobile");
+
+		loginPage.openUrl("https://zpay.mobi");
+
+		loginPage.clickDYNAMIC_GAME("rosthai");
+	}
+	@Test
+	public void testcase_42_Only_input_role_name() throws InterruptedException {
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+
+		Thread.sleep(2000);
+
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "กรุณาเลือกเซิร์ฟเวอร์");
+	}
+
+	@Test
+	public void testcase_43_Only_Input_Role_Name() throws InterruptedException {
+
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("Stay with me tonight");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+
+		Thread.sleep(2000);
+
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "กรุณาเลือกเซิร์ฟเวอร์");
+	}
+
+	@Test
+	public void testcase_44_Only_Select_Server() throws InterruptedException {
+
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+
+		Thread.sleep(2000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("Europe");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "กรุณากรอกชื่อตัวละคร");
+	}
+
+	@Test
+	public void testcase_45_Input_invalid_account() throws InterruptedException {
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("Japan");
+
+		Thread.sleep(1000);
+
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("GiinTHSK");
+
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "ไม่พบข้อมูลตัวละคร");
+	}
+
+	@Test
+	public void testcase_46_Input_RoleID_in_RoleName() throws InterruptedException {
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("Asia");
+
+		Thread.sleep(1000);
+
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("550403");
+
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+		
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "ไม่พบข้อมูลตัวละคร");
+	}
+	
+	@Test
+	public void testcase_47_Verify_Login_Success_By_RoleName() throws InterruptedException {
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+		
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("Asia");
+
+		Thread.sleep(1000);
+
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("Giin");
+
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+		
+		loginPage.clickLOGIN_BY_ROLE_POPUP_BTT_CANCEL();
+	}
+	@Test
+	public void testcase_48_Verify_message_when_only_input_RoleID() throws InterruptedException {
+		
+		logTestCase("Select game Ros mobile");
+
+		loginPage.openUrl("https://zpay.mobi");
+
+		loginPage.clickDYNAMIC_GAME("rosthai");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_OPTION_ROLE_ID();
+		
+		Thread.sleep(1000);
+		
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("550403");
+		
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+		
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "กรุณาเลือกเซิร์ฟเวอร์");
+	}
+	
+	@Test
+	public void testcase_49_Verify_message_when_only_select_server() throws InterruptedException {
+		
+		Thread.sleep(1000);
+		
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("Latin-America");
+		
+		Thread.sleep(500);
+		
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("");
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+		
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "กรุณากรอกชื่อตัวละคร");
+	}
+	@Test
+	public void testcase_50_Verify_message_when_login_by_roleNAME_in_tab_roleID() throws InterruptedException {
+		
+		Thread.sleep(1000);
+		
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("Asia");
+		
+		Thread.sleep(500);
+		
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("Giin");
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+		
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "ไม่พบข้อมูลตัวละคร");
+	}
+	@Test
+	public void testcase_51_Verify_login_success_by_roleID() throws InterruptedException {
+		
+		Thread.sleep(1000);
+		
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("Asia");
+		
+		Thread.sleep(500);
+		
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("550403");
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_POPUP_BTT_ACCEPT();
+	}
+	@Test
+	public void testcase_52_Select_ROS_PC() throws InterruptedException {
+
+		logTestCase("Select game Ros mobile");
+
+		loginPage.openUrl("https://zpay.mobi");
+
+		loginPage.clickDYNAMIC_GAME("rospcthai");
+	}
+	@Test
+	public void testcase_53_Only_input_role_name() throws InterruptedException {
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+
+		Thread.sleep(2000);
+
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "กรุณาเลือกเซิร์ฟเวอร์");
+	}
+
+	@Test
+	public void testcase_54_Only_Input_Role_Name() throws InterruptedException {
+
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("Some body to love");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+
+		Thread.sleep(2000);
+
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "กรุณาเลือกเซิร์ฟเวอร์");
+	}
+
+	@Test
+	public void testcase_55_Only_Select_Server() throws InterruptedException {
+
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+
+		Thread.sleep(2000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("PC-Europe");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "กรุณากรอกชื่อตัวละคร");
+	}
+
+	@Test
+	public void testcase_56_Input_invalid_account() throws InterruptedException {
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("PC-Asia");
+
+		Thread.sleep(1000);
+
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("GiinTHSK");
+
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "ไม่พบข้อมูลตัวละคร");
+	}
+
+	@Test
+	public void testcase_57_Input_RoleID_in_RoleName() throws InterruptedException {
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("PC-America");
+
+		Thread.sleep(1000);
+
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("165835491");
+
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+		
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "ไม่พบข้อมูลตัวละคร");
+	}
+	
+	@Test
+	public void testcase_58_Verify_Login_Success_By_RoleName() throws InterruptedException {
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+		
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("PC-Asia");
+
+		Thread.sleep(1000);
+
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("GiiÑ");
+
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+		
+		loginPage.clickLOGIN_BY_ROLE_POPUP_BTT_CANCEL();
+	}
+	@Test
+	public void testcase_59_Verify_message_when_only_input_RoleID() throws InterruptedException {
+		
+		logTestCase("Select game Ros mobile");
+
+		loginPage.openUrl("https://zpay.mobi");
+
+		loginPage.clickDYNAMIC_GAME("rospcthai");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_ROLE_OPTION_ROLE_ID();
+		
+		Thread.sleep(1000);
+		
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("550403");
+		
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+		
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "กรุณาเลือกเซิร์ฟเวอร์");
+	}
+	
+	@Test
+	public void testcase_60_Verify_message_when_only_select_server() throws InterruptedException {
+		
+		Thread.sleep(1000);
+		
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("PC-America");
+		
+		Thread.sleep(500);
+		
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("");
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+		
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "กรุณากรอกชื่อตัวละคร");
+	}
+	@Test
+	public void testcase_61_Verify_message_when_login_by_roleNAME_in_tab_roleID() throws InterruptedException {
+		
+		Thread.sleep(1000);
+		
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("PC-Europe");
+		
+		Thread.sleep(500);
+		
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("Giin");
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+		
+		verifyEqual(loginPage.getTextLOGIN_BY_ROLE_MSG_ERROR(), "ไม่พบข้อมูลตัวละคร");
+	}
+	@Test
+	public void testcase_62_Verify_login_success_by_roleID() throws InterruptedException {
+		
+		Thread.sleep(1000);
+		
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU();
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_DROPDOWN_MAYCHU_OPTION("PC-Asia");
+		
+		Thread.sleep(500);
+		
+		loginPage.inputLOGIN_BY_ROLE_TXT_TENNHANVAT("49136097");
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_BTT_DANGNHAP();
+		
+		Thread.sleep(500);
+		
+		loginPage.clickLOGIN_BY_ROLE_POPUP_BTT_ACCEPT();
+	}
+	@Test
+	public void testcase_63_Select_Super_Samkok() throws InterruptedException {
+
+		logTestCase("Select game Super Samkok");
+
+		loginPage.openUrl("https://zpay.mobi");
+
+		loginPage.clickDYNAMIC_GAME("omg2ss");
+
+	}
+	@Test
+	public void testcase_64_Verify_display_method_login_By_Facebook() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		Thread.sleep(1000);
+		loginPage.clickICON_FACEBOOK();
+		Thread.sleep(1000);
+		loginPage.backToPage();
+	}
+	@Test
+	public void testcase_65_Verify_display_method_Login_By_Google() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		Thread.sleep(1000);
+		loginPage.clickICON_GOOGLE();
+		Thread.sleep(1000);
+		loginPage.backToPage();
+	}
+	@Test
+	public void testcase_66_Verify_display_method_Login_By_Zalo() throws InterruptedException {
+		loginPage.clickICON_ZALO();
+	}
+	@Test
+	public void testcase_67_Verify_display_method_Login_By_ZingID() throws InterruptedException {
+		loginPage.clickICON_ZINGID();
+	}
+	@Test
+	public void testcase_68_Verify_display_method_Login_By_Email() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_EMAIL();
+		Thread.sleep(1000);
+	}
+	@Test
+	public void testcase_69_Verify_display_message_when_click_Back() throws InterruptedException {
+		loginPage.clickLOGIN_BY_EMAIL_BACK_BTT();
+		Thread.sleep(1000);
+//		verifyEqual(loginPage.getTextLOGIN_BY_EMAIL_BACK_BTT_POPUP_MESSAGE(), "การตรวจสอบความถูกต้องด้วย GUEST ล้มเหลว.");
+//		loginPage.clickLOGIN_BY_EMAIL_BACK_BTT_POPUP_BTT_OK();
+	}		
+	@Test
+	public void testcase_70_Verify_display_message_when_not_input_information() throws InterruptedException {
+		loginPage.clickDYNAMIC_GAME("omg2ss");
+		Thread.sleep(1000);
+		loginPage.clickICON_EMAIL();
+		Thread.sleep(1000);
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+	@Test
+	public void testcase_71_Verify_display_message_when_only_input_username() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("Wasurenaide");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+	@Test
+	public void testcase_72_Verify_display_message_when_not_input_information() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("");
+
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("Proud");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+
+	@Test
+	public void testcase_73_Verify_display_message_when_input_invalid_account() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("Love in the ice");
+
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("One67611176");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+
+		verifyEqual(loginPage.getTextLOGIN_BY_EMAIL_ERROR_MESSAGE(), "Authentication failed");
+
+	}
+	@Test
+	public void testcase_74_Verify_display_message_when_input_valid_account() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("nhutne555@gmail.com");
+
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("Aa123456!");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+
+		Thread.sleep(2000);
+
+		verifyEqual(loginPage.getTitle(), "OMG 2 - Super Samkok");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUCCESS_BTT_LOGOUT();
+	}
+	@Test
+	public void testcase_75_Select_Reign_of_Warlords_Thai() throws InterruptedException {
+
+		logTestCase("Select game Reign of Warlords Thai");
+
+		loginPage.openUrl("https://zpay.mobi");
+
+		loginPage.clickDYNAMIC_GAME("stct");
+
+	}
+	@Test
+	public void testcase_76_Verify_display_method_login_By_Facebook() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		Thread.sleep(1000);
+		loginPage.clickICON_FACEBOOK();
+		Thread.sleep(1000);
+		loginPage.backToPage();
+	}
+	@Test
+	public void testcase_77_Verify_display_method_Login_By_Google() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		Thread.sleep(1000);
+		loginPage.clickICON_GOOGLE();
+		Thread.sleep(1000);
+		loginPage.backToPage();
+	}
+	@Test
+	public void testcase_78_Verify_display_method_Login_By_Zalo() throws InterruptedException {
+		loginPage.clickICON_ZALO();
+	}
+	@Test
+	public void testcase_79_Verify_display_method_Login_By_ZingID() throws InterruptedException {
+		loginPage.clickICON_ZINGID();
+	}
+	@Test
+	public void testcase_80_Verify_display_method_Login_By_Email() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_EMAIL();
+		Thread.sleep(1000);
+	}
+	@Test
+	public void testcase_81_Verify_display_message_when_click_Back() throws InterruptedException {
+		loginPage.clickLOGIN_BY_EMAIL_BACK_BTT();
+		Thread.sleep(1000);
+		verifyEqual(loginPage.getTextLOGIN_BY_EMAIL_BACK_BTT_POPUP_MESSAGE(), "การตรวจสอบความถูกต้องด้วย GUEST ล้มเหลว.");
+		loginPage.clickLOGIN_BY_EMAIL_BACK_BTT_POPUP_BTT_OK();
+	}		
+	@Test
+	public void testcase_82_Verify_display_message_when_not_input_information() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickICON_EMAIL();
+		Thread.sleep(1000);
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+	@Test
+	public void testcase_83_Verify_display_message_when_only_input_username() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("Wasurenaide");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+	@Test
+	public void testcase_84_Verify_display_message_when_not_input_information() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("");
+
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("Proud");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+
+	@Test
+	public void testcase_85_Verify_display_message_when_input_invalid_account() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("Love in the ice");
+
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("One67611176");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+
+		verifyEqual(loginPage.getTextLOGIN_BY_EMAIL_ERROR_MESSAGE(), "Thông tin đăng nhập không chính xác");
+	}
+	@Test
+	public void testcase_86_Verify_display_message_when_input_valid_account() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("nhutne555@gmail.com");
+
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("Aa123456!");
+
+		Thread.sleep(1000);
+
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+
 //		Thread.sleep(2000);
 //
-//		if (eleNhanVat != null) {
+//		verifyEqual(loginPage.getTitle(), "Reign of Warlords");
 //
-//			loginPage.clickDropDown_NhanVat(eleNhanVat);
-//			Thread.sleep(500);
-//			String locator = String.format(LogInPageUI.LIST_ITEM_NHANVAT, "GiinVD");
-//			loginPage.selectDropdown_NhanVat(eleNhanVat, locator);
-//		}
-
-	@Test
-	public void testcase_06_select_quicklogin() {
-
-		logTestCase("Email: Select login by email");
-
-		loginPage.clickQuickLogin_Icon();
+//		Thread.sleep(1000);
+//
+//		loginPage.clickLOGIN_BY_EMAIL_SUCCESS_BTT_LOGOUT();
 	}
-
 	@Test
-	public void testcase_07_QuickLogin_Dont_type_Username_and_password() {
+	public void testcase_87_Select_Dai_Chien_Samurai_Thai() throws InterruptedException {
 
-		logTestCase("Email: Don't input username + password");
+		logTestCase("Select game Samurai Master Thai");
 
-		loginPage.clickBTT_DangNhap();
+		loginPage.openUrl("https://zpay.mobi");
 
-		verifyEqual(loginPage.getText_Null_UserName_Password(), "Vui lòng nhập email bảo vệ tài khoản");
-	}
-
-	@Test
-	public void testcase_08_QuickLogin_Only_type_Username() {
-
-		logTestCase("Email: Only input username ");
-
-		loginPage.input_Username_TXT("nhutne123456@gmail.com");
-
-		loginPage.clickBTT_DangNhap();
-
-		verifyEqual(loginPage.getText_OnlyType_Username(), "Vui lòng nhập mật khẩu");
-
-		loginPage.clearByJs("$('input#u').val(\"\")");
+		loginPage.clickDYNAMIC_GAME("dcsthai");
 
 	}
-
 	@Test
-	public void testcase_09_QuickLogin_Only_type_Password() {
-
-		logTestCase("Email: Only input password ");
-
-		loginPage.input_Password_TXT("1234534646");
-
-		loginPage.clickBTT_DangNhap();
-
-		verifyEqual(loginPage.getText_OnlyType_Password(), "Vui lòng nhập email bảo vệ tài khoản");
-
-		loginPage.clearByJs("$('input#p').val(\"\")");
-	}
-
-	@Test
-	public void testcase_10_QuickLogin_Login_account_invalid() throws InterruptedException {
-
-		logTestCase("Email: Login with invalid account");
-
-		loginPage.input_Username_TXT("nhutneTVXQ@gmail.com");
-
-		loginPage.input_Password_TXT("1234534646");
-
-		loginPage.clickBTT_DangNhap();
-
-		Thread.sleep(2000);
-
-		verifyEqual(loginPage.getText_Invalid_Account(), "Thông tin đăng nhập không chính xác");
-		
-	}
-
-	@Test
-	public void testcase_11_QuickLogin_Login_success() throws InterruptedException {
-		
-		logTestCase("Email: Login success");
-		
-		loginPage.clearByJs("$('input#u').val(\"\")");
-		
-		loginPage.clearByJs("$('input#p').val(\"\")");
-
-		loginPage.input_Username_TXT("nhutne555@gmail.com");
-
-		loginPage.input_Password_TXT("Aa123456!");
-
-		loginPage.clickBTT_DangNhap();
-
-		Thread.sleep(2000);
-
-		loginPage.clickBTT_Thoat();
-	}
-	
-	@Test
-	public void testcase_12_Login_By_Zalo() throws InterruptedException {
-
-		logTestCase("Zalo: Direct screen login by zalo");
-		
-		Thread.sleep(2000);
-		
-		loginPage.clickZalo_Icon();
-		
+	public void testcase_88_Verify_display_method_login_By_Facebook() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		Thread.sleep(1000);
+		loginPage.clickICON_FACEBOOK();
+		Thread.sleep(1000);
 		loginPage.backToPage();
 	}
-	
 	@Test
-	public void testcase_13_Login_By_Facebook() throws InterruptedException {
-
-		logTestCase("Facebook: Direct screen login by Facebook");
-		
-		Thread.sleep(2000);
-		
-		loginPage.clickFaceBook_Icon();
-		
+	public void testcase_89_Verify_display_method_Login_By_Google() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		Thread.sleep(1000);
+		loginPage.clickICON_GOOGLE();
+		Thread.sleep(1000);
 		loginPage.backToPage();
 	}
-
 	@Test
-	public void testcase_14_Role_Ingame_Verify_display_srceen_login() throws InterruptedException {
+	public void testcase_90_Verify_display_method_Login_By_Zalo() throws InterruptedException {
+		loginPage.clickICON_ZALO();
+	}
+	@Test
+	public void testcase_91_Verify_display_method_Login_By_ZingID() throws InterruptedException {
+		loginPage.clickICON_ZINGID();
+	}
+	@Test
+	public void testcase_92_Verify_display_method_Login_By_Email() throws InterruptedException {
+		loginPage.clickICON_EMAIL();
+	}
+	@Test
+	public void testcase_93_Verify_display_message_when_click_Back() throws InterruptedException {
+//		Thread.sleep(1000);
+//		loginPage.clickDYNAMIC_GAME("dcsthai");
+//		Thread.sleep(500);
+//		loginPage.clickICON_EMAIL();
+//		Thread.sleep(1000);
+		loginPage.clickLOGIN_BY_EMAIL_BACK_BTT();
+		Thread.sleep(1000);
+//		verifyEqual(loginPage.getTextLOGIN_BY_EMAIL_BACK_BTT_POPUP_MESSAGE(), "การตรวจสอบความถูกต้องด้วย GUEST ล้มเหลว.");
+//		loginPage.clickLOGIN_BY_EMAIL_BACK_BTT_POPUP_BTT_OK();
+	}		
+	@Test
+	public void testcase_94_Verify_display_message_when_not_input_information() throws InterruptedException {
+		Thread.sleep(1000);
+		loginPage.clickDYNAMIC_GAME("dcsthai");
+		Thread.sleep(500);
+		loginPage.clickICON_EMAIL();
+		Thread.sleep(1000);
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+	@Test
+	public void testcase_95_Verify_display_message_when_only_input_username() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("Wasurenaide");
 
-		logTestCase("Role Ingame: Verify display srceen login");
+		Thread.sleep(1000);
 
-		Thread.sleep(2000);
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
+	}
+	@Test
+	public void testcase_96_Verify_display_message_when_not_input_information() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("");
 
-		loginPage.openUrl("https://pay.zing.vn/");
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("Proud");
 
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 
-		loginPage.inputTXT_TIMKIEMGAME("rules of survival");
-
-		Thread.sleep(1500);
-
-		loginPage.clickKETQUA_TIMKIEM();
-
-		Thread.sleep(1500);
-
-		loginPage.clickXacNhan_ID_NHANVAT();
-
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
 	}
 
 	@Test
-	public void testcase_15_Login_By_Name_Ingame_Verify_message_when_null_information() throws InterruptedException {
+	public void testcase_97_Verify_display_message_when_input_invalid_account() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("Love in the ice");
 
-		logTestCase("Role Ingame: Verify message when click button Xac Nhan");
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("One67611176");
 
-		Thread.sleep(1500);
+		Thread.sleep(1000);
 
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
 
-		verifyEqual(loginPage.getText_IDNHANVAT_FORM_MESS(), "Vui lòng chọn máy chủ");
+		verifyEqual(loginPage.getTextLOGIN_BY_EMAIL_ERROR_MESSAGE(), "Authentication failed");
 	}
-
 	@Test
-	public void testcase_16_Login_By_Name_Ingame_Verify_message_when_only_input_Name() throws InterruptedException {
-		logTestCase("Role Ingame: Verify message when only input Ten nhan vat");
+	public void testcase_98_Verify_display_message_when_input_valid_account() throws InterruptedException {
+		loginPage.inputLOGIN_BY_EMAIL_USERNAME_TXT("nhutne555@gmail.com");
 
-		Thread.sleep(1500);
-
-		loginPage.inputIDNHANVAT_FORM_TXT_NHANVAT("Wasurenaide");
+		loginPage.inputLOGIN_BY_EMAIL_PASSWORD_TXT("Aa123456!");
 
 		Thread.sleep(1000);
 
-		loginPage.cleanIDNHANVAT_FORM_TXT_NHANVAT();
-
-		loginPage.inputIDNHANVAT_FORM_TXT_NHANVAT("Xoa va nhap lai");
-
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
-
-		verifyEqual(loginPage.getText_IDNHANVAT_FORM_MESS(), "Vui lòng chọn máy chủ");
-
-	}
-
-	@Test
-	public void testcase_17_Login_By_Name_Ingame_Verify_message_when_only_select_Server() throws InterruptedException {
-
-		logTestCase("Role Ingame: Verify message when only select server");
-
-		Thread.sleep(1500);
-
-		loginPage.cleanIDNHANVAT_FORM_TXT_NHANVAT();
-
-		loginPage.clickIDNHANVAT_FORM_DROPDOWN_MAYCHU();
-
-		Thread.sleep(1000);
-
-		loginPage.selectIDNHANVAT_FORM_DROPDOWN_OPTION_MAYCHU("Asia");
-
-		Thread.sleep(1000);
-
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
-
-		verifyEqual(loginPage.getText_IDNHANVAT_FORM_MESS(), "Vui lòng nhập tên nhân vật");
-	}
-
-	@Test
-	public void testcase_18_Login_By_Name_Ingame_Verify_message_when_input_invalid_information()
-			throws InterruptedException {
-		logTestCase("Role Ingame: Verify message when input invalid information");
-
-		Thread.sleep(1000);
-
-		loginPage.clickIDNHANVAT_FORM_DROPDOWN_MAYCHU();
-
-		Thread.sleep(1000);
-
-		loginPage.selectIDNHANVAT_FORM_DROPDOWN_OPTION_MAYCHU("Japan");
-
-		Thread.sleep(1000);
-
-		loginPage.inputIDNHANVAT_FORM_TXT_NHANVAT("GiinTHSK");
-
-		Thread.sleep(1000);
-
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
-
-		verifyEqual(loginPage.getText_IDNHANVAT_FORM_MESS(), "Thông tin nhân vật không tìm thấy");
-
-		Thread.sleep(1000);
-
-		loginPage.cleanIDNHANVAT_FORM_TXT_NHANVAT();
-
-		Thread.sleep(500);
-
-		loginPage.inputIDNHANVAT_FORM_TXT_NHANVAT("550403 ");
-		
-		Thread.sleep(500);
-
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
-		
-		verifyEqual(loginPage.getText_IDNHANVAT_FORM_MESS(), "Tên nhân vật phải có độ dài từ 1 đến 16 ký tự");
-
-	}
-
-	@Test
-	public void testcase_19_Login_By_Name_Ingame_Verify_message_when_input_roleID() throws InterruptedException {
-
-		logTestCase("Role Ingame: Verify message when input invalid information");
-
-		Thread.sleep(1000);
-
-		loginPage.clickIDNHANVAT_FORM_DROPDOWN_MAYCHU();
-
-		Thread.sleep(1000);
-
-		loginPage.selectIDNHANVAT_FORM_DROPDOWN_OPTION_MAYCHU("Asia");
-
-		Thread.sleep(1000);
-
-		loginPage.cleanIDNHANVAT_FORM_TXT_NHANVAT();
-
-		Thread.sleep(500);
-
-		loginPage.inputIDNHANVAT_FORM_TXT_NHANVAT("550403");
-
-		Thread.sleep(500);
-
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
-	}
-
-	@Test
-	public void testcase_20_Login_By_Name_Ingame_Verify_login_success() throws InterruptedException {
-		logTestCase("Role Ingame: Verify message when input invalid information");
-
-		Thread.sleep(1000);
-
-		loginPage.clickIDNHANVAT_FORM_DROPDOWN_MAYCHU();
-
-		Thread.sleep(1000);
-
-		loginPage.selectIDNHANVAT_FORM_DROPDOWN_OPTION_MAYCHU("Asia");
-
-		Thread.sleep(1000);
-
-		loginPage.cleanIDNHANVAT_FORM_TXT_NHANVAT();
-
-		Thread.sleep(500);
-
-		loginPage.inputIDNHANVAT_FORM_TXT_NHANVAT("Giin");
-
-		Thread.sleep(500);
-
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
-		
-		loginPage.clickIDNHANVAT_FORM_POPUP_BTT_HUY();
+		loginPage.clickLOGIN_BY_EMAIL_SUBMIT_BTT();
 	}
 	
-	@Test
-	public void testcase_21_Login_By_Role_Ingame_Verify_message_when_null_information() throws InterruptedException {
-		
-		logTestCase("Role Ingame: Verify message when click button Xac Nhan");
-		
-		loginPage.openUrl("https://pay.zing.vn/");
-
-		Thread.sleep(2000);
-
-		loginPage.inputTXT_TIMKIEMGAME("rules of survival");
-
-		Thread.sleep(1500);
-
-		loginPage.clickKETQUA_TIMKIEM();
-
-		Thread.sleep(1500);
-
-		loginPage.clickXacNhan_ID_NHANVAT();
-		
-		Thread.sleep(2000);
-		
-		loginPage.clickIDNHANVAT_FORM_ROLE_ID();
-		
-		Thread.sleep(1500);
-		
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
-
-		verifyEqual(loginPage.getText_IDNHANVAT_FORM_MESS(), "Vui lòng chọn máy chủ");
-	}
-
-	@Test
-	public void testcase_22_Login_By_Role_Ingame_Verify_message_when_only_input_Name() throws InterruptedException {
-		logTestCase("Role Ingame: Verify message when only input Ten nhan vat");
-
-		Thread.sleep(1500);
-
-		loginPage.inputIDNHANVAT_FORM_TXT_NHANVAT("Wasurenaide");
-
-		Thread.sleep(1000);
-
-		loginPage.cleanIDNHANVAT_FORM_TXT_NHANVAT();
-
-		loginPage.inputIDNHANVAT_FORM_TXT_NHANVAT("Xoa va nhap lai");
-
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
-
-		verifyEqual(loginPage.getText_IDNHANVAT_FORM_MESS(), "Vui lòng chọn máy chủ");
-
-	}
-
-	@Test
-	public void testcase_23_Login_By_Role_Ingame_Verify_message_when_only_select_Server() throws InterruptedException {
-
-		logTestCase("Role Ingame: Verify message when only select server");
-
-		Thread.sleep(1500);
-
-		loginPage.cleanIDNHANVAT_FORM_TXT_NHANVAT();
-
-		loginPage.clickIDNHANVAT_FORM_DROPDOWN_MAYCHU();
-
-		Thread.sleep(1000);
-
-		loginPage.selectIDNHANVAT_FORM_DROPDOWN_OPTION_MAYCHU("Asia");
-
-		Thread.sleep(1000);
-
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
-
-		verifyEqual(loginPage.getText_IDNHANVAT_FORM_MESS(), "Vui lòng nhập tên nhân vật");
-	}
-
-	@Test
-	public void testcase_24_Login_By_Role_Ingame_Verify_message_when_input_invalid_information()
-			throws InterruptedException {
-		logTestCase("Role Ingame: Verify message when input invalid information");
-
-		Thread.sleep(1000);
-
-		loginPage.clickIDNHANVAT_FORM_DROPDOWN_MAYCHU();
-
-		Thread.sleep(1000);
-
-		loginPage.selectIDNHANVAT_FORM_DROPDOWN_OPTION_MAYCHU("Japan");
-
-		Thread.sleep(1000);
-
-		loginPage.inputIDNHANVAT_FORM_TXT_NHANVAT("GiinTHSK");
-
-		Thread.sleep(1000);
-
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
-
-		verifyEqual(loginPage.getText_IDNHANVAT_FORM_MESS(), "Thông tin nhân vật không tìm thấy");
-
-		Thread.sleep(1000);
-
-		loginPage.cleanIDNHANVAT_FORM_TXT_NHANVAT();
-
-		Thread.sleep(500);
-
-		loginPage.inputIDNHANVAT_FORM_TXT_NHANVAT("550403 ");
-		
-		Thread.sleep(500);
-
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
-		
-		verifyEqual(loginPage.getText_IDNHANVAT_FORM_MESS(), "Tên nhân vật phải có độ dài từ 1 đến 16 ký tự");
-
-	}
-
-	@Test
-	public void testcase_25_Login_By_Role_Ingame_Verify_message_when_input_roleID() throws InterruptedException {
-
-		logTestCase("Role Ingame: Verify message when input invalid information");
-
-		Thread.sleep(1000);
-
-		loginPage.clickIDNHANVAT_FORM_DROPDOWN_MAYCHU();
-
-		Thread.sleep(1000);
-
-		loginPage.selectIDNHANVAT_FORM_DROPDOWN_OPTION_MAYCHU("Asia");
-
-		Thread.sleep(1000);
-
-		loginPage.cleanIDNHANVAT_FORM_TXT_NHANVAT();
-
-		Thread.sleep(500);
-
-		loginPage.inputIDNHANVAT_FORM_TXT_NHANVAT("Giin");
-
-		Thread.sleep(500);
-
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
-	}
-
-	@Test
-	public void testcase_26_Login_By_Role_Ingame_Verify_login_success() throws InterruptedException {
-		logTestCase("Role Ingame: Verify message when input invalid information");
-
-		Thread.sleep(1000);
-
-		loginPage.clickIDNHANVAT_FORM_DROPDOWN_MAYCHU();
-
-		Thread.sleep(1000);
-
-		loginPage.selectIDNHANVAT_FORM_DROPDOWN_OPTION_MAYCHU("Asia");
-
-		Thread.sleep(1000);
-
-		loginPage.cleanIDNHANVAT_FORM_TXT_NHANVAT();
-
-		Thread.sleep(500);
-
-		loginPage.inputIDNHANVAT_FORM_TXT_NHANVAT("550403");
-
-		Thread.sleep(500);
-
-		loginPage.clickIDNHANVAT_FORM_BTT_XACNHAN();
-		
-		Thread.sleep(500);
-		
-		loginPage.clickIDNHANVAT_FORM_POPUP_BTT_XACNHAN();
-		
-		verifyEqual(loginPage.getTitle(), "ROS MOBILE");
-
-	}
-
+	
 	@AfterMethod
 	public void afterMethod(ITestResult result) {
 		getResult(result);

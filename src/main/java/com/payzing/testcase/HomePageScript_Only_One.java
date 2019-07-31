@@ -20,7 +20,7 @@ import com.payzing.actions.HomePage;
 import com.payzing.actions.LogInPage;
 import com.payzing.ui.HomePageUI;
 
-import CommonPage.CommonTestcase;
+import Common.CommonTestcase;
 
 public class HomePageScript_Only_One extends CommonTestcase {
 

@@ -2,36 +2,155 @@ package com.payzing.actions;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import com.payzing.ui.HomePageUI;
 
-import CommonPage.commonFunction;
+import Common.commonFunction;
 
 public class HomePage extends commonFunction {
 
+	public String ServerGroup;
+	public String Server;
+
 	public HomePage(WebDriver driver) {
 		super(driver);
-		
+
 	}
 
+	@FindBy(xpath = "//span[contains(text(),'Chọn cụm máy chủ')]/parent::button")
+	WebElement DROPDOWN_CUMMAYCHU;
+
+	@FindBy(xpath = "//span[contains(text(),'Chọn máy chủ')]/parent::button")
+	WebElement DROPDOWN_MAYCHU;
+
+	@FindBy(xpath = "//span[contains(text(),'%s')]/parent::li")
+	public static WebElement LIST_ITEM_CUMMAYCHU;
+
+	@FindBy(xpath = "//span[contains(text(),'%s')]/parent::li")
+	public static WebElement LIST_ITEM_MAYCHU;
+
+	@FindBy(xpath = "//span[contains(text(),'%s')]/parent::li")
+	public static WebElement LIST_ITEM_NHANVAT;
+
+	@FindBy(id = "authBtnSubmit")
+	WebElement BTT_XACNHAN;
+
+	@FindBy(id = "popupProductConfirm")
+	WebElement POPUP_XACNHAN_PACKAGE;
+
+	@FindBy(id = "wallet")
+	WebElement METHOD_E_WALLET;
+
+	@FindBy(id = "molthmpay")
+	WebElement METHOD_E_WALLET_mPAY;
+
+	@FindBy(id = "molthtruewallet")
+	WebElement METHOD_E_WALLET_TRUE_MONEY;
+
+	@FindBy(id = "molthlinepay")
+	WebElement METHOD_E_WALLET_LINE_PAY;
+
+	@FindBy(id = "btnSubmitPaymentElementwallet")
+	WebElement METHOD_E_WALLET_BTT_XACNHAN;
+
+	@FindBy(name = "phonenumber")
+	WebElement METHOD_E_WALLET_TRUE_MONEY_TXT_SDT;
+
+	@FindBy(id = "walletauth")
+	WebElement METHOD_E_WALLET_TRUE_MONEY_BTT_GUI_OTP;
+
+	@FindBy(xpath = "//font[contains(@color,'red')]")
+	WebElement METHOD_E_WALLET_TRUE_MONEY_ERROR_MESSAGE;
+	
+	@FindBy(name="mobileNo")
+	WebElement METHOD_E_WALLET_mPAY_TXT_SDT;
+	
+	@FindBy(name="ok")
+	WebElement METHOD_E_WALLET_mPAY_BTT_GUI;
+	
+	@FindBy(id="bank")
+	WebElement METHOD_BANK;
+	
+	@FindBy(id="molthscb")
+	WebElement METHOD_BANK_SCB;
+	
+	@FindBy(id="molthktb")
+	WebElement METHOD_BANK_KTB;
+	
+	@FindBy(id="molthbay")
+	WebElement METHOD_BANK_BAY;
+	
+	@FindBy(id="molthbbl")
+	WebElement METHOD_BANK_BBL;
+	
+	@FindBy(id="btnSubmitPaymentElementbank")
+	WebElement METHOD_BANK_BTT_XACNHAN;
+	
+	@FindBy(id="cancelBtn")
+	WebElement METHOD_BANK_SCB_BTT_CANCEL_1;
+	
+	@FindBy(id="btnBack")
+	WebElement METHOD_BANK_SCB_BTT_CANCEL_2;
+	
+	@FindBy(id="txtResult")
+	WebElement RESULT_STATUS;
+	
+	@FindBy(id="txtPaymentID")
+	WebElement RESULT_ID;
+	
+	@FindBy(xpath="//span[contains(@data-bind,'gtCore.mess.ContinutePayment')]")
+	WebElement RESULT_BTT_TIEPTUCTHANHTOAN;
+	
+	
+//	@FindBy()
+//	WebElement
+//	
+//	@FindBy()
+//	WebElement
+//	
+//	@FindBy()
+//	WebElement
+//	
+//	@FindBy()
+//	WebElement
+//	
+//	@FindBy()
+//	WebElement
+//	
+//	@FindBy()
+//	WebElement
+//	
+//	@FindBy()
+//	WebElement
+//	
+//	@FindBy()
+//	WebElement
+//	
+//	@FindBy()
+//	WebElement
+//	
+//	@FindBy()
+//	WebElement
+
 	public void clickDropDown_CumMayChu(WebElement ele) {
-		waitVisible(HomePageUI.DROPDOWN_CUMMAYCHU);
+		waitVisible_Locator(HomePageUI.DROPDOWN_CUMMAYCHU);
 		ele.click();
 	}
 
 	public void selectDropdown_CumMayChu(WebElement ele, String locator) {
-		waitVisible(locator);
+		waitVisible_Locator(locator);
 		selectCombobox_Special(ele, locator);
 	}
 
 	//
 	public void clickDropDown_MayChu(WebElement ele) {
-		waitVisible(HomePageUI.DROPDOWN_MAYCHU);
+		waitVisible_Locator(HomePageUI.DROPDOWN_MAYCHU);
 		ele.click();
 	}
 
 	public void selectDropdown_MayChu(WebElement ele, String locator) {
-		waitVisible(locator);
+		waitVisible_Locator(locator);
 		selectCombobox_Special(ele, locator);
 	}
 
@@ -41,411 +160,155 @@ public class HomePage extends commonFunction {
 	}
 
 	public void selectDropdown_NhanVat(WebElement ele, String locator) {
-		waitVisible(locator);
+		waitVisible_Locator(locator);
 		selectCombobox_Special(ele, locator);
 	}
-	
-	public String getText_Title_Game() {
-		waitVisible(HomePageUI.TITLEGAME_LBL);
-		return getText(HomePageUI.TITLEGAME_LBL);
+
+	public void clickBTT_XacNhan() {
+		waitVisible(BTT_XACNHAN);
+		clickElement(BTT_XACNHAN);
+	}
+
+	public void clickXacNhan_ChonPack() {
+		waitVisible(POPUP_XACNHAN_PACKAGE);
+		clickElement(POPUP_XACNHAN_PACKAGE);
+	}
+
+	public void clickMETHOD_E_WALLET() {
+		waitVisible(METHOD_E_WALLET);
+		clickElement(METHOD_E_WALLET);
+	}
+
+	public void clickMETHOD_E_WALLET_mPAY() throws InterruptedException {
+		waitVisible(METHOD_E_WALLET_mPAY);
+		Thread.sleep(500);
+		clickElement(METHOD_E_WALLET_mPAY);
+	}
+
+	public void clickMETHOD_E_WALLET_TRUE_MONEY() throws InterruptedException {
+		waitVisible(METHOD_E_WALLET_TRUE_MONEY);
+		Thread.sleep(500);
+		clickElement(METHOD_E_WALLET_TRUE_MONEY);
+	}
+
+	public void clickMETHOD_E_WALLET_LINE_PAY() throws InterruptedException {
+		waitVisible(METHOD_E_WALLET_LINE_PAY);
+		Thread.sleep(500);
+		clickElement(METHOD_E_WALLET_LINE_PAY);
+	}
+
+	public void clickMETHOD_E_WALLET_BTT_XACNHAN() throws InterruptedException {
+		waitVisible(METHOD_E_WALLET_BTT_XACNHAN);
+		Thread.sleep(500);
+		clickElement(METHOD_E_WALLET_BTT_XACNHAN);
+	}
+
+	public void inputMETHOD_E_WALLET_TRUE_MONEY_TXT_SDT(String value) throws InterruptedException {
+		waitVisible(METHOD_E_WALLET_TRUE_MONEY_TXT_SDT);
+		clear(METHOD_E_WALLET_TRUE_MONEY_TXT_SDT);
+		input(METHOD_E_WALLET_TRUE_MONEY_TXT_SDT, value);
+	}
+
+	public void clickMETHOD_E_WALLET_TRUE_MONEY_BTT_GUI_OTP() throws InterruptedException {
+		waitVisible(METHOD_E_WALLET_TRUE_MONEY_BTT_GUI_OTP);
+		Thread.sleep(1000);
+		clickElement(METHOD_E_WALLET_TRUE_MONEY_BTT_GUI_OTP);
+	}
+
+	public String getText_METHOD_E_WALLET_TRUE_MONEY_ERROR_MESSAGE() {
+		waitVisible(METHOD_E_WALLET_TRUE_MONEY_ERROR_MESSAGE);
+		return getText(METHOD_E_WALLET_TRUE_MONEY_ERROR_MESSAGE);
 	}
 	
-	public void clickBTT_XacNhan()
+	public void inputMETHOD_E_WALLET_mPAY_TXT_SDT(String value) throws InterruptedException
 	{
-		waitVisible(HomePageUI.BTT_XACNHAN);
-		click(HomePageUI.BTT_XACNHAN);
+		waitVisible(METHOD_E_WALLET_mPAY_TXT_SDT);
+		Thread.sleep(500);
+		input(METHOD_E_WALLET_mPAY_TXT_SDT, value);
 	}
 	
-	public void clickPOPUP_XacNhan()
+	public void clickMETHOD_E_WALLET_mPAY_BTT_GUI() throws InterruptedException
 	{
-		waitVisible(HomePageUI.POPUP_XACNHAN);
-		click(HomePageUI.POPUP_XACNHAN);
+		waitVisible(METHOD_E_WALLET_mPAY_BTT_GUI);
+		Thread.sleep(500);
+		clickElement(METHOD_E_WALLET_mPAY_BTT_GUI);
 	}
 	
-	public void clickPackage50()
+	public void clickMETHOD_BANK()
 	{
-		waitVisible(HomePageUI.PACKAGE_50POINT);
-		click(HomePageUI.PACKAGE_50POINT);
+		waitVisible(METHOD_BANK);
+		clickElement(METHOD_BANK);
 	}
 	
-	public void clickXacNhan_ChonPack()
+	public void clickMETHOD_BANK_SCB() throws InterruptedException
 	{
-		waitVisible(HomePageUI.POPUP_XACNHAN_PACKAGE);
-		click(HomePageUI.POPUP_XACNHAN_PACKAGE);
+		waitVisible(METHOD_BANK_SCB);
+		Thread.sleep(500);
+		clickElement(METHOD_BANK_SCB);
 	}
 	
-	public void inputSoTienThanhToan_TXT_ZaloPay(String value)
+	public void clickMETHOD_BANK_KTB() throws InterruptedException
 	{
-		waitVisible(HomePageUI.OPTION_ZaloPay_SOTIENTHANHTOAN_TXT);
-		input(HomePageUI.OPTION_ZaloPay_SOTIENTHANHTOAN_TXT, value);
+		waitVisible(METHOD_BANK_KTB);
+		Thread.sleep(500);
+		clickElement(METHOD_BANK_KTB);
 	}
 	
-	public void clearSoTienThanhToan_TXT_ZaloPay()
+	public void clickMETHOD_BANK_BAY() throws InterruptedException
 	{
-		waitVisible(HomePageUI.OPTION_ZaloPay_SOTIENTHANHTOAN_TXT);
-		clear(HomePageUI.OPTION_ZaloPay_SOTIENTHANHTOAN_TXT);
+		waitVisible(METHOD_BANK_BAY);
+		Thread.sleep(500);
+		clickElement(METHOD_BANK_BAY);
 	}
 	
-	
-	public void clickXacNhan_ZaloPay()
+	public void clickMETHOD_BANK_BBL() throws InterruptedException
 	{
-		waitVisible(HomePageUI.ZALOPAY_XACNHAN_BTT);
-		click(HomePageUI.ZALOPAY_XACNHAN_BTT);
+		waitVisible(METHOD_BANK_BBL);
+		Thread.sleep(500);
+		clickElement(METHOD_BANK_BBL);
 	}
 	
-	public void clickKiemTraKetQuaGiaoDich_ZaloPay()
+	public void clickMETHOD_BANK_BTT_XACNHAN() throws InterruptedException
 	{
-		waitVisible(HomePageUI.ZALOPAY_KIEMTRAKETQUAGIAODICH_BTT);
-		click(HomePageUI.ZALOPAY_KIEMTRAKETQUAGIAODICH_BTT);
+		waitVisible(METHOD_BANK_BTT_XACNHAN);
+		Thread.sleep(1000);
+		clickElement(METHOD_BANK_BTT_XACNHAN);
 	}
 	
-	public String getText_MaGiaoDich_ZaloPay()
+	public void clickMETHOD_BANK_SCB_BTT_CANCEL_1() throws InterruptedException
 	{
-		waitVisible(HomePageUI.MAGIAODICH_LBL);
-		return getText(HomePageUI.MAGIAODICH_LBL);
+		waitVisible(METHOD_BANK_SCB_BTT_CANCEL_1);
+		Thread.sleep(500);
+		clickElement(METHOD_BANK_SCB_BTT_CANCEL_1);
 	}
 	
-	public void clickTiepTucThanhToan()
+	public void clickMETHOD_BANK_SCB_BTT_CANCEL_2() throws InterruptedException
 	{
-		waitVisible(HomePageUI.HREF_TIEPTUCTHANHTOAN);
-		click(HomePageUI.HREF_TIEPTUCTHANHTOAN);
+		waitVisible(METHOD_BANK_SCB_BTT_CANCEL_2);
+		Thread.sleep(500);
+		clickElement(METHOD_BANK_SCB_BTT_CANCEL_2);
 	}
 	
-	public void clickKiemTraKetQuaGiaoDich()
+	public String getTextRESULT_STATUS()
 	{
-		waitVisible(HomePageUI.BTT_KIEMTRAKETQUAGIAODICH);
-		click(HomePageUI.BTT_KIEMTRAKETQUAGIAODICH);
+		waitVisible(RESULT_STATUS);
+		return getText(RESULT_STATUS);
 	}
 	
-	public void clickPhuongThuc_ZingCard()
+	public String getTextRESULT_ID()
 	{
-		waitVisible(HomePageUI.OPTION_ZINGCARD);
-		click(HomePageUI.OPTION_ZINGCARD);
+		waitVisible(RESULT_ID);
+		return getText(RESULT_ID);
 	}
 	
-	public void clickXacNhan_ZingCard()
+	public void clickRESULT_BTT_TIEPTUCTHANHTOAN() throws InterruptedException
 	{
-		waitVisible(HomePageUI.ZINGCARD_XACNHAN_BTT);
-		click(HomePageUI.ZINGCARD_XACNHAN_BTT);
-	}
-	
-	public void inputSoSeri_ZingCard(String value)
-	{
-		waitVisible(HomePageUI.ZINGCARD_SOTHE_TXT);
-		input(HomePageUI.ZINGCARD_SOTHE_TXT, value);
-	}
-	
-	public void inputMaThe_ZingCard(String value)
-	{
-		waitVisible(HomePageUI.ZINGCARD_MAPIN_TXT);
-		input(HomePageUI.ZINGCARD_MAPIN_TXT, value);
-	}
-	
-	public String getText_Error_ZingCard()
-	{
-		waitVisible(HomePageUI.ZINGCARD_MESSAGE);
-		
-		return getText(HomePageUI.ZINGCARD_MESSAGE);
-	}
-	
-	public void cleanSoSeri_ZingCard()
-	{
-		waitVisible(HomePageUI.ZINGCARD_SOTHE_TXT);
-		clear(HomePageUI.ZINGCARD_SOTHE_TXT);
-	}
-	
-	public void cleanMaThe_ZingCard()
-	{
-		waitVisible(HomePageUI.ZINGCARD_MAPIN_TXT);
-		clear(HomePageUI.ZINGCARD_MAPIN_TXT);
-	}
-	
-	public void clickPhuongThuc_ATM()
-	{
-		waitVisible(HomePageUI.OPTION_ATM);
-		click(HomePageUI.OPTION_ATM);
-	}
-	
-	public void inputSoTienThanhToan_TXT_ATM(String value)
-	{
-		waitVisible(HomePageUI.OPTION_ATM_SOTIENTHANHTOAN_TXT);
-		input(HomePageUI.OPTION_ATM_SOTIENTHANHTOAN_TXT, value);
-	}
-	
-	public void clearSoTienThanhToan_TXT_ATM()
-	{
-		waitVisible(HomePageUI.OPTION_ATM_SOTIENTHANHTOAN_TXT);
-		clear(HomePageUI.OPTION_ATM_SOTIENTHANHTOAN_TXT);
-	}
-	
-	public void clickXacNhan_ATM()
-	{
-		waitVisible(HomePageUI.ATM_XACNHAN_BTT);
-		click(HomePageUI.ATM_XACNHAN_BTT);
-	}
-	
-	public void click_Bank_Tranfers_NAPAS()
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_NAPAS);
-		click(HomePageUI.ATM_TRANS_GATE_NAPAS);
-	}
-	
-	public void click_Bank_Tranfers_BANKWEB()
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_BANKWEB);
-		click(HomePageUI.ATM_TRANS_GATE_BANKWEB);
-	}
-	
-	public void click_Bank_Tranfers_ZALOPAY()
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_ZALOPAY);
-		click(HomePageUI.ATM_TRANS_GATE_ZALOPAY);
-	}
-	
-	public void inputBank_Tranfers_NAPAS_TenChuThe(String value)
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_NAPAS_TENCHUTHE_TXT);
-		input(HomePageUI.ATM_TRANS_GATE_NAPAS_TENCHUTHE_TXT, value);
-	}
-	
-	public void inputBank_Tranfers_NAPAS_SoThe(String value)
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_NAPAS_SOTHE_TXT);
-		input(HomePageUI.ATM_TRANS_GATE_NAPAS_SOTHE_TXT, value);
-	}
-	
-	public void clickBank_Tranfers_NAPAS_BTT_ThanhToan()
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_NAPAS_THANHTOAN_BTT);
-		click(HomePageUI.ATM_TRANS_GATE_NAPAS_THANHTOAN_BTT);
-	}
-	
-	public void clickBank_Tranfers_NAPAS_BTT_Huy()
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_NAPAS_HUY_BTT);
-		click(HomePageUI.ATM_TRANS_GATE_NAPAS_HUY_BTT);
-	}
-	
-	public String getTextBank_Tranfers_NAPAS_Mess()
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_NAPAS_MESS_KHONGNHAP);
-		
-		return getText(HomePageUI.ATM_TRANS_GATE_NAPAS_MESS_KHONGNHAP);
-	}
-	
-	public String getTitle_Bank_Tranfers_NAPAS()
-	{
-		
-		return getTitle();
-	}
-	
-	public void cleanBank_Tranfers_NAPAS_TenChuThe()
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_NAPAS_TENCHUTHE_TXT);
-		clear(HomePageUI.ATM_TRANS_GATE_NAPAS_TENCHUTHE_TXT);
-	}
-	
-	public void cleanBank_Tranfers_NAPAS_SoThe()
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_NAPAS_SOTHE_TXT);
-		clear(HomePageUI.ATM_TRANS_GATE_NAPAS_SOTHE_TXT);
-	}
-	
-	public String getText_MaGiaoDich_ATM()
-	{
-		waitVisible(HomePageUI.MAGIAODICH_LBL);
-		return getText(HomePageUI.MAGIAODICH_LBL);
-	}
-	
-	public String getText_TrangThaiGiaoDich_ATM()
-	{
-		waitVisible(HomePageUI.TRANGTHAIGIAODICH_LBL);
-		return getText(HomePageUI.TRANGTHAIGIAODICH_LBL);
-	}
-	
-	public void inputBank_Tranfers_ZALOPAY_SoThe(String value)
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_ZALOPAY_SOTHE_TXT);
-		input(HomePageUI.ATM_TRANS_GATE_ZALOPAY_SOTHE_TXT, value);
-	}
-	
-	public void inputBank_Tranfers_ZALOPAY_TenChuThe(String value)
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_ZALOPAY_TENCHUTHE_TXT);
-		input(HomePageUI.ATM_TRANS_GATE_ZALOPAY_TENCHUTHE_TXT, value);
-	}
-	
-	public void inputBank_Tranfers_ZALOPAY_NgayPhatHanh(String value)
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_ZALOPAY_NGAYPHATHANH_TXT);
-		input(HomePageUI.ATM_TRANS_GATE_ZALOPAY_NGAYPHATHANH_TXT, value);
-	}
-	
-	public void clickBank_Tranfers_ZALOPAY_Huy_Icon()
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_ZALOPAY_HUY_ICON);
-		click(HomePageUI.ATM_TRANS_GATE_ZALOPAY_HUY_ICON);
-		
-	}
-	
-		
-	public void clearBank_Tranfers_ZALOPAY_SoThe()
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_ZALOPAY_SOTHE_TXT);
-		clear(HomePageUI.ATM_TRANS_GATE_ZALOPAY_SOTHE_TXT);
-	}
-//	
-//	public void clearBank_Tranfers_ZALOPAY_TenChuThe()
-//	{
-//		waitVisible(HomePageUI.ATM_TRANS_GATE_ZALOPAY_TENCHUTHE_TXT);
-//		clear(HomePageUI.ATM_TRANS_GATE_ZALOPAY_TENCHUTHE_TXT);
-//	}
-//	
-//	public void clearBank_Tranfers_ZALOPAY_NgayPhatHanh()
-//	{
-//		waitVisible(HomePageUI.ATM_TRANS_GATE_ZALOPAY_NGAYPHATHANH_TXT);
-//		clear(HomePageUI.ATM_TRANS_GATE_ZALOPAY_NGAYPHATHANH_TXT);
-//	}
-	
-	public void clearByJS(String value)
-	{
-		executeScriptBrowser(value);
-	}
-	
-	public void inputByJS(String value)
-	{
-		executeScriptBrowser(value);
-	}
-	
-	public void clickBank_Tranfers_ZALOPAY_Huy_Icon_PopUp_Huy_BTT()
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_ZALOPAY_HUY_ICON_POPUP_HUY_BTT);
-		click(HomePageUI.ATM_TRANS_GATE_ZALOPAY_HUY_ICON_POPUP_HUY_BTT);
-	}
-	
-	public void clickBank_Tranfers_ZALOPAY_Huy_Icon_PopUp_XacNhan_BTT()
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_ZALOPAY_HUY_ICON_POPUP_XACNHAN_BTT);
-		click(HomePageUI.ATM_TRANS_GATE_ZALOPAY_HUY_ICON_POPUP_XACNHAN_BTT);
-	}
-	
-	public void clickBank_Tranfers_ZALOPAY_Huy_Icon_PopUp_XacNhan_BTT_QuayVe_BTT()
-	{
-		waitVisible(HomePageUI.ATM_TRANS_GATE_ZALOPAY_HUY_ICON_POPUP_XACNHAN_BTT_QUAYVE_BTT);
-		click(HomePageUI.ATM_TRANS_GATE_ZALOPAY_HUY_ICON_POPUP_XACNHAN_BTT_QUAYVE_BTT);
-	
-	}
-	
-	public void clickPhuongThuc_CreditCard()
-	{
-		waitVisible(HomePageUI.OPTION_CREDITCARD);
-		click(HomePageUI.OPTION_CREDITCARD);
-	} 
-	
-	public void clickXacNhan_CreditCard()
-	{
-		waitVisible(HomePageUI.CREDIT_XACNHAN_BTT);
-		click(HomePageUI.CREDIT_XACNHAN_BTT);
-	}
-	
-	public void inputSoTienThanhToan_TXT_CreditCard(String value)
-	{
-		waitVisible(HomePageUI.OPTION_CREDITCARD_SOTIENTHANHTOAN_TXT);
-		input(HomePageUI.OPTION_CREDITCARD_SOTIENTHANHTOAN_TXT, value);
-	}
-	
-	public void clearSoTienThanhToan_TXT_CreditCard()
-	{
-		waitVisible(HomePageUI.OPTION_CREDITCARD_SOTIENTHANHTOAN_TXT);
-		clear(HomePageUI.OPTION_CREDITCARD_SOTIENTHANHTOAN_TXT);
-	}
-	
-	public void inputCreditCard_FORM_SoThe_TXT(String value)
-	{
-		waitVisible(HomePageUI.CREDIT_FORM_SOTHE_TXT);
-		input(HomePageUI.CREDIT_FORM_SOTHE_TXT, value);
-	}
-	
-	public void inputCreditCard_FORM_TenChuThe_TXT(String value)
-	{
-		waitVisible(HomePageUI.CREDIT_FORM_TENCHUTHE_TXT);
-		input(HomePageUI.CREDIT_FORM_TENCHUTHE_TXT, value);
-	}
-	
-	public void inputCreditCard_FORM_NgayHetHan_TXT(String value)
-	{
-		waitVisible(HomePageUI.CREDIT_FORM_NGAYHETHAN_TXT);
-		input(HomePageUI.CREDIT_FORM_NGAYHETHAN_TXT, value);
-	}
-	
-	public void inputCreditCard_FORM_CVV_TXT(String value)
-	{
-		waitVisible(HomePageUI.CREDIT_FORM_CVV_TXT);
-		input(HomePageUI.CREDIT_FORM_CVV_TXT, value);
-	}
-	
-	public void clickCreditCard_FORM_THANHTOAN_BTT()
-	{
-		waitVisible(HomePageUI.CREDIT_FORM_THANHTOAN_BTT);
-		click(HomePageUI.CREDIT_FORM_THANHTOAN_BTT);
-	}
-	
-	public void clickCreditCard_FORM_HUY_ICON()
-	{
-		waitVisible(HomePageUI.CREDIT_FORM_HUY_ICON);
-		click(HomePageUI.CREDIT_FORM_HUY_ICON);
-	}
-	
-	public void clickCreditCard_FORM_HUY_ICON_HUY_BTT()
-	{
-		waitVisible(HomePageUI.CREDIT_FORM_HUY_ICON_HUY_BTT);
-		click(HomePageUI.CREDIT_FORM_HUY_ICON_HUY_BTT);
-	}
-	
-	public String getText_MaGiaoDich_Credit()
-	{
-		waitVisible(HomePageUI.MAGIAODICH_LBL);
-		return getText(HomePageUI.MAGIAODICH_LBL);
-	}
-	
-	public String getText_TrangThaiGiaoDich_Credit()
-	{
-		waitVisible(HomePageUI.TRANGTHAIGIAODICH_LBL);
-		return getText(HomePageUI.TRANGTHAIGIAODICH_LBL);
+		waitVisible(RESULT_BTT_TIEPTUCTHANHTOAN);
+		Thread.sleep(500);
+		clickElement(RESULT_BTT_TIEPTUCTHANHTOAN);
 	}
 	
 	
-	public void clickPhuongThuc_SMS_HREF()
-	{
-		waitVisible(HomePageUI.HREF_NAPBANGSMS);
-		click(HomePageUI.HREF_NAPBANGSMS);
-	} 
 	
-	public void clickPhuongThuc_SMS_Game_Convert()
-	{
-		waitVisible(HomePageUI.OPTION_SMS_GAME_CONVERT);
-		click(HomePageUI.OPTION_SMS_GAME_CONVERT);
-	} 
-	
-	
-	public void clickSoTienThanhToan_DropDown_SMS()
-	{
-		waitVisible(HomePageUI.SMS_DROPDOWN_SOTIENTHANHTOAN);
-		click(HomePageUI.SMS_DROPDOWN_SOTIENTHANHTOAN);
-		waitVisible(HomePageUI.SMS_DROPDOWN_OPTION_SOTIENTHANHTOAN);
-		clickRandomOptionInCombobox(HomePageUI.SMS_DROPDOWN_OPTION_SOTIENTHANHTOAN);
-	}
-	
-	public void clickXacNhan_SMS()
-	{
-		waitVisible(HomePageUI.SMS_BTT_XACNHAN);
-		click(HomePageUI.SMS_BTT_XACNHAN);
-	}
-	
-	public String getText_MaGiaoDich_SMS()
-	{
-		waitVisible(HomePageUI.MAGIAODICH_LBL);
-		return getText(HomePageUI.MAGIAODICH_LBL);
-	}
-	
+
 }

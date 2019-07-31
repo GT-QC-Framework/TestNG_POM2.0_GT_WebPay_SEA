@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
 import com.payzing.actions.HomePage;
 import com.payzing.actions.LogInPage;
 
-import CommonPage.CommonTestcase;
+import Common.CommonTestcase;
 
 public class HomePageScript_Game_Convert extends CommonTestcase {
 

@@ -1,4 +1,4 @@
-package CommonPage;
+package Common;
 
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -49,6 +49,10 @@ public class commonFunction extends BasePage {
 		element.click();
 	}
 
+	public void clickElement(WebElement element) {
+		element.click();
+	}
+
 	public void backToPage() {
 		driver.navigate().back();
 	}
@@ -61,16 +65,14 @@ public class commonFunction extends BasePage {
 		driver.navigate().refresh();
 	}
 
-	public void clear(String locator) {
-		WebElement element = driver.findElement(By.xpath(locator));
+	public void clear(WebElement element) {
 		element.clear();
 	}
 
-	public void input(String locator, String value) {
-		WebElement element = driver.findElement(By.xpath(locator));
+	public void input(WebElement element, String value) {
 		element.sendKeys(value);
 	}
-	
+
 	public void selectCombobox(String locator, String value) {
 		Select select = new Select(driver.findElement(By.xpath(locator)));
 
@@ -84,12 +86,11 @@ public class commonFunction extends BasePage {
 		WebElement e = ele.findElement(By.xpath(locator));
 		e.click();
 	}
-	
-	//Dropdown
-	public void selectDropdown(String locator, String value)
-	{
+
+	// Dropdown
+	public void selectDropdown(String locator, String value) {
 		List<WebElement> list = driver.findElements(By.xpath(locator));
-    	for (WebElement elementList : list) {
+		for (WebElement elementList : list) {
 			if (elementList.getText().equals(value)) {
 				elementList.click();
 				break;
@@ -109,8 +110,7 @@ public class commonFunction extends BasePage {
 		return element.getAttribute(attribute);
 	}
 
-	public String getText(String locator) {
-		WebElement element = driver.findElement(By.xpath(locator));
+	public String getText(WebElement element) {
 		return element.getText();
 	}
 
@@ -274,10 +274,16 @@ public class commonFunction extends BasePage {
 	}
 
 	public void clickByJs(String locator) {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
 		WebElement element = driver.findElement(By.xpath(locator));
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", element);
 
+	}
+
+	// version2
+	public void clickByJsVer2(WebElement element, String value) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click();", element);
 	}
 
 	public void scrollToBottomPage() {
@@ -302,7 +308,12 @@ public class commonFunction extends BasePage {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
 	}
 
-	public void waitVisible(String locator) {
+	public void waitVisible(WebElement element) {
+		WebDriverWait wait = new WebDriverWait(driver, timeouts);
+		wait.until(ExpectedConditions.visibilityOf(element));
+	}
+
+	public void waitVisible_Locator(String locator) {
 		WebDriverWait wait = new WebDriverWait(driver, timeouts);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
 	}
@@ -351,7 +362,35 @@ public class commonFunction extends BasePage {
 		Boolean isPresent = driver.findElements(By.xpath(locator)).size() > 0;
 		return isPresent;
 	}
-	
-	
 
+// Hardcode dynamicxpath ver2.0
+	public String getTextDynamicXpath(String value) {
+		String dynamicXpath = String.format("//*[contains(@src,'%s')]", value);
+		WebElement element = driver.findElement(By.xpath(dynamicXpath));
+		return element.getText();
+	}
+
+	public void waitVisibleDynamicXpath(String value) {
+		WebDriverWait wait = new WebDriverWait(driver, timeouts);
+		String dynamicXpath = String.format("//*[contains(@src,'%s')]", value);
+		WebElement element = driver.findElement(By.xpath(dynamicXpath));
+		wait.until(ExpectedConditions.visibilityOf(element));
+	}
+
+	public void clickDynamicXpath(String value) {
+		String dynamicXpath = String.format("//*[contains(@src,'%s')]", value);
+		WebElement element = driver.findElement(By.xpath(dynamicXpath));
+		element.click();
+	}
+
+	public boolean checkLocatorDisplay(List<WebElement> element) {
+		Boolean isPresent = element.size() > 0;
+		return isPresent;
+	}
+
+	public void clickDynamic_Dropdown_Option(String dynamic) {
+		String dynamicXpath = String.format("//li[@data-group]//span[contains(text(),'%s')]", dynamic);
+		WebElement element = driver.findElement(By.xpath(dynamicXpath));
+		element.click();
+	}
 }
